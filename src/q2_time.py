@@ -4,6 +4,7 @@ from datetime import datetime
 import polars as pl
 import emoji
 from collections import Counter
+import re
 
 
 def q2_time(file_path: str) -> List[Tuple[str, int]]:
@@ -20,6 +21,10 @@ def q2_time(file_path: str) -> List[Tuple[str, int]]:
     """
 
     df = pl.scan_ndjson(file_path)
+    # Preprocesamiento: eliminar URLs, menciones de usuario y hashtags
+    df = df.select(
+        pl.col("content").apply(lambda text: re.sub(r"(?:\@|https?\://)\S+", "", text), return_dtype=pl.String).alias("content")
+    )
     df = df.select(
         pl.col("content").apply(extract_emojis,return_dtype=pl.List(str)).alias("emojis")
     ).filter(
@@ -36,7 +41,7 @@ def q2_time(file_path: str) -> List[Tuple[str, int]]:
 
 def extract_emojis(text: str) -> List[str]:
     """
-    Extrae todos los emojis de un texto.
+    Extrae todos los emojis de un texto y los devuelve en una lista.
 
     Args:
         text (str): Texto del que se extraerán los emojis.
@@ -45,3 +50,4 @@ def extract_emojis(text: str) -> List[str]:
         List[str]: Lista de emojis extraídos.
     """
     return [emj['emoji'] for emj in emoji.emoji_list(text)]
+
