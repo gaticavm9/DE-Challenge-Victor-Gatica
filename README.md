@@ -1,4 +1,8 @@
 # Data Engineer Challenge
+
+## Detalles del Desarrollo
+Se siguió la estructura planteada para el proyecto y el uso de practicas GitFlow para ir guardando el progreso en este repositorio.
+En la carpeta `src` se encuentra el notebook `.ipynb` con todo el Análisis y explicaciones de cómo se resolvió el desafío y tambien se encuentran los archivos `.py` que contienen las distintas funciones requeridas.
 ​
 ## Descripción General
 Bienvenido al desafío para Ingenieros de Datos. En esta ocasión, tendrás la oportunidad de acercarte a parte de la realidad del rol, demostrar tus habilidades y conocimientos en procesamiento de datos con python y diferentes estructuras de datos.
